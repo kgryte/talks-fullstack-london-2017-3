@@ -98,6 +98,7 @@
 					</ul>
 					<ol class="column column-8">
 						<li class="fragment">WebAssembly</li>
+						<li class="fragment">Toolchain</li>
 						<li class="fragment">Examples</li>
 						<li class="fragment">The Future</li>
 					</ol>
@@ -382,13 +383,13 @@
 						The first 8 bytes of every WebAssembly is the preamble.
 					</p>
 					<p>
-						The first 4 bytes is a "magic number", which allows for a file loader to quickly determine if a file is WebAssembly or not.
+						The first 4 bytes of the preamble is a "magic number", which allows for a file loader to quickly determine if a file is WebAssembly or not.
 					</p>
 					<p>
-						The next 4 bytes are the WebAssembly specification version. Here, the version number is 1.
+						The next 4 bytes of the preamble are the WebAssembly specification version. Here, the version number is 1.
 					</p>
 					<p>
-						The module preamble is followed by a sequence of sections, where each section begins with a section code followed by the section length (in bytes).
+						The module preamble is followed by a sequence of optional sections, where each section begins with a section code followed by the section length (in bytes).
 					</p>
 				</aside>
 			</section>
@@ -425,7 +426,7 @@
 							The import section declares all imports that will be used in the module; e.g., externally defined functions, including JavaScript functions.
 						</li>
 						<li>
-							The function section declares the signatures of all functions used in a module (their definitions appear in the <strong>code<strong> section).
+							The function section declares the signatures of all functions used in a module (their definitions appear in the <strong>code</strong> section).
 						</li>
 						<li>
 							The table section declares tables used in a module, where a table is similar to lineary memory, except, instead of bytes, the elements are opaque values of a particular element type. At the moment, the only supported element type is <code>"anyfunc"</code>, and the primary purpose of a table is to implement indirect function calls in C/C++ where the table contains indirectly-callable functions and an integer index is used as the pointer-to-function.
