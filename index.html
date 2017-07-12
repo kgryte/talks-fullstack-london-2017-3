@@ -415,7 +415,7 @@
 
 				<aside class="notes">
 					<p>
-						There are 11 specification defined sections...
+						There are 11 specification defined sections, all of which are optional...
 					</p>
 					<ol>
 						<li>
@@ -425,8 +425,36 @@
 							The import section declares all imports that will be used in the module; e.g., externally defined functions, including JavaScript functions.
 						</li>
 						<li>
-
+							The function section declares the signatures of all functions used in a module (their definitions appear in the <strong>code<strong> section).
+						</li>
+						<li>
+							The table section declares tables used in a module, where a table is similar to lineary memory, except, instead of bytes, the elements are opaque values of a particular element type. At the moment, the only supported element type is <code>"anyfunc"</code>, and the primary purpose of a table is to implement indirect function calls in C/C++ where the table contains indirectly-callable functions and an integer index is used as the pointer-to-function.
+						</li>
+						<li>
+							The memory section provides an internal definition of the linear memory used by a module, where linear memory can be considered as an untyped array of bytes which is sandboxed. Linear memories can either be declared within a module or created externally and imported.
+						</li>
+						<li>
+							The global section provides definitions of global variables.
+						</li>
+						<li>
+							The export section declares module definitions which should be made available to the external environment.
+						</li>
+						<li>
+							The start section specifies a function to invoke after a module instance is initialized and before exported functions are callable.
+						</li>
+						<li>
+							The elements section allows a module to initialize a table's elements.
+						</li>
+						<li>
+							The code section contains the function bodies for every function in a module.
+						</li>
+						<li>
+							The data section declares the initialized data that is loaded into linear memory.
+						</li>
 					</ol>
+					<p>
+						In addition to these sections, modules can define custom sections.
+					</p>
 				</aside>
 			</section>
 
