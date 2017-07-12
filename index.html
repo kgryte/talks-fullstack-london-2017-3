@@ -117,7 +117,9 @@
 			</section>
 
 			<section class="center">
-				<p>A portable compilation target for the web</p>
+				<p>
+					A portable compilation target for the web
+				</p>
 
 				<aside class="notes">
 
@@ -125,26 +127,56 @@
 			</section>
 
 			<section class="center">
-				<p>Allows running languages other than JavaScript within browser environments</p>
+				<p>
+					Allows running languages other than JavaScript within browser environments
+				</p>
 
 				<aside class="notes">
 
 				</aside>
 			</section>
 
-			<!-- <section class="center">
+			<section class="center">
 				<p>C/C++&nbsp;&nbsp;&nbsp;→&nbsp;&nbsp;&nbsp;x86/ARM</p>
 
 				<aside class="notes">
-
+					<p>
+						Before going further, a brief interlude on compilers...
+					</p>
+					<p>
+						A "simple" compiler would take source files and directly compile them to machine code specific to a target CPU.
+					</p>
+					<p>
+						The issue here, however, is that, for every input language, you need to define how to translate that input to machine code.
+					</p>
+					<p>
+						Hence, if the number of languages is N and the number of CPU types is M, then the total number of translations is N by M (multiplicative).
+					</p>
 				</aside>
-			</section> -->
+			</section>
 
 			<section class="center">
 				<p>C/C++&nbsp;&nbsp;&nbsp;→&nbsp;&nbsp;&nbsp;IR&nbsp;&nbsp;&nbsp;→&nbsp;&nbsp;&nbsp;x86/ARM</p>
 
 				<aside class="notes">
-
+					<p>
+						Many modern compilers are now split into two components: a frontend compiler, responsible for taking a higher level language like C or C++ and compiling to an intermediate representation (IR), and a backend compiler, responsible for translating the intermediate representation to machine code.
+					</p>
+					<p>
+						By doing this, no longer is the translation problem N by M (or multiplicative), but additive, N plus M.
+					</p>
+					<p>
+						To support compiling an additional higher level language, I only need to write a single frontend compiler, responsible for compiling that higher level language to an intermediate representation.
+					</p>
+					<p>
+						Once the language is compiled to an intermediate representation, it can automatically be translated to machine code using the backend compiler.
+					</p>
+					<p>
+						This is in contrast to the earlier "simple" compiler I mentioned previously where I would have needed to write M translations for every language I want to add.
+					</p>
+					<p>
+						In a similar vein, if I want to add an additional processor, I only need to figure out how to translate the intermediate representation to machine code specific to that processor.
+					</p>
 				</aside>
 			</section>
 
@@ -152,7 +184,21 @@
 				<p>C/C++&nbsp;&nbsp;&nbsp;→&nbsp;&nbsp;&nbsp;IR&nbsp;&nbsp;&nbsp;→&nbsp;&nbsp;&nbsp;wasm&nbsp;&nbsp;&nbsp;→&nbsp;&nbsp;&nbsp;x86/ARM</p>
 
 				<aside class="notes">
-
+					<p>
+						Now, where WebAssembly (wasm, for short) fits in this pipeline is after the intermediate representation.
+					</p>
+					<p>
+						In the above pipeline, I have input source files; a frontend compiler compiles those source files to an intermediate representation.
+					</p>
+					<p>
+						A backend compiler that the intermediate representation and compiles to WebAssembly.
+					</p>
+					<p>
+						The WebAssembly is subsequently passed to a browser engine, either being loaded over HTTP or read from the filesystem, say, in Node.js.
+					</p>
+					<p>
+						The browser engine then translates the WebAssembly to machine code specific to a host platform.
+					</p>
 				</aside>
 			</section>
 
