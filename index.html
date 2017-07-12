@@ -165,7 +165,7 @@
 
 				<aside class="notes">
 					<p>
-						Many modern compilers are now split into two components: a frontend compiler, responsible for taking a higher level language like C or C++ and compiling to an intermediate representation (IR), and a backend compiler, responsible for translating the intermediate representation to machine code.
+						Many modern compilers, such as LLVM and GCC, are now split into two components: a frontend compiler, responsible for taking a higher level language like C or C++ and compiling to an intermediate representation (IR), which is a low-level language similar to assembly, and a backend compiler, responsible for translating the intermediate representation to instruction sets (i.e., machine code).
 					</p>
 					<p>
 						By doing this, no longer is the translation problem N by M (or multiplicative), but additive, N plus M.
@@ -174,13 +174,13 @@
 						To support compiling an additional higher level language, I only need to write a single frontend compiler, responsible for compiling that higher level language to an intermediate representation.
 					</p>
 					<p>
-						Once the language is compiled to an intermediate representation, it can automatically be translated to machine code using the backend compiler.
+						Once the language is compiled to an intermediate representation, it can automatically be translated to machine code using a backend compiler.
 					</p>
 					<p>
 						This is in contrast to the earlier "simple" compiler I mentioned previously where I would have needed to write M translations for every language I want to add.
 					</p>
 					<p>
-						In a similar vein, if I want to add an additional processor, I only need to figure out how to translate the intermediate representation to machine code specific to that processor.
+						In a similar vein, if I want to add an additional instruction set, I only need to figure out how to translate the intermediate representation to machine code specific to that processor.
 					</p>
 				</aside>
 			</section>
@@ -190,19 +190,19 @@
 
 				<aside class="notes">
 					<p>
-						Now, where WebAssembly (wasm, for short) fits in this pipeline is after the intermediate representation.
+						Now, where WebAssembly (abbreviated: wasm) fits in this pipeline is after the intermediate representation.
 					</p>
 					<p>
-						In the above pipeline, I have input source files; a frontend compiler compiles those source files to an intermediate representation.
+						In the above pipeline, I begin with input source files. A frontend compiler compiles those source files to an intermediate representation.
 					</p>
 					<p>
-						A backend compiler that the intermediate representation and compiles to WebAssembly.
+						A backend compiler takes the intermediate representation and compiles to WebAssembly.
 					</p>
 					<p>
-						The WebAssembly is subsequently passed to a browser engine, either being loaded over HTTP in a browser or read from the filesystem in Node.js.
+						The WebAssembly is subsequently passed to a JavaScript engine, either being loaded over HTTP in a browser or read from the filesystem in Node.js.
 					</p>
 					<p>
-						The browser engine then translates the WebAssembly to machine code specific to a host platform.
+						The JavaScript engine then translates the WebAssembly to machine code specific to a host platform.
 					</p>
 				</aside>
 			</section>
@@ -272,7 +272,7 @@
 						...here is WebAssembly module which exports a single function "add" which adds two 32-bit integers and returns a 32-bit integer result.
 					</p>
 					<p>
-						Similar to LISP, the text format uses s-expressions for representing the program "tree".
+						Similar to LISP, the text format, commonly referred to as WAST, uses s-expressions for representing the program "tree".
 					</p>
 					<p>
 						The type section contains function definitions that are used in the module.
@@ -307,7 +307,7 @@
 						Currently, WebAssembly only supports 4 value types, which are all numeric types: 32-bit integers, 32-bit single-precision floating-point numbers, 64-bit integers, and 64-bit double-precision floating-point numbers.
 					</p>
 					<p>
-						Any other value type must be constructed by manipulating raw memory.
+						Any other value type must be constructed by manipulating raw memory. In practice, this means copying data to the module heap and using pointers.
 					</p>
 				</aside>
 			</section>
