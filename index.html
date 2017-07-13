@@ -97,6 +97,7 @@
 						&nbsp;
 					</ul>
 					<ol class="column column-8">
+						<li class="fragment">History</li>
 						<li class="fragment">WebAssembly</li>
 						<li class="fragment">Toolchain</li>
 						<li class="fragment">Examples</li>
@@ -110,10 +111,72 @@
 			</section>
 
 			<section class="center">
+				<h2 class="no-text-transform">History</h2>
+
+				<div class="row">
+					<ul class="column column-3">
+						&nbsp;
+					</ul>
+					<ul class="column column-8">
+						<li class="fragment">Applets</li>
+						<li class="fragment">ActiveX</li>
+						<li class="fragment">NaCl</li>
+						<li class="fragment">PNaCl</li>
+						<li class="fragment">asm.js</li>
+					</ul>
+				</div>
+
+				<aside class="notes">
+					<ul>
+						<li>
+							<p>
+								The first bit of prior art are Java applets. Java Applets are small applications written in Java or another language which compiles to Java bytecode.
+							</p>
+							<p>
+								When a user launches a Java applet from a webpage, the applet is executed within the Java Virtual Machine (JVM) in a process separate from the browser itself.
+							</p>
+							<p>
+								For much of their life on the web, applets were significantly faster than JavaScript and were especially useful for compute intensive applications.
+							</p>
+							<p>
+								However, as JavaScript engines have improved and gained support for hardware-accelerated graphics, the speed difference has dismissed significantly.
+							</p>
+							<p>
+								Accordingly, Java applets have less of a role on the web and have been deprecated.
+							</p>
+						</li>
+						<li>
+							As an alternative to Java Applets, Microsoft created ActiveX which allowed running unsandboxed native code. In theory, ActiveX was OS independent; however, in practice, ActiveX was strongly tied to Windows operating systems.
+						</li>
+						<li>
+							The next bit of prior art is Google Native Client (NaCl), which is a sandboxing technology capable of running native code at near native speed on select processors, such as Intel x86 and ARM.
+						</li>
+						<li>
+							NaCl was followed by Portable Native Client (PNaCl), which is an architecture-independent version of NaCl. Google has since deprecated PNaCl in favor of WebAssembly.
+						</li>
+						<li>
+							<p>
+								The last bit of prior art is asm.js, which started off as a research project at Mozilla.
+							</p>
+							<p>
+								The goal was determine whether JavaScript could be reduced to a language subset, capable of ahead-of-time optimizations and other performance improvements similar to that of statically compiled languages.
+							</p>
+							<p>
+								The team working on asm.js was able to demonstrate a runtime performance just 1.5-2x slower than C.
+							</p>
+							<p>
+								One of the big advantages of asm.js compared to prior efforts is that, because asm.js is still JavaScript, code compiled to asm.js is backward compatible with older browsers.
+							</p>
+						</li>
+					</ul>
+				</aside>
+			</section>
+
+			<section class="center">
 				<h2 class="no-text-transform">WebAssembly</h2>
 
 				<aside class="notes">
-
+					Building of the collective efforts of the past 20 years, browser vendors came together to achieve consensus on binary format for the web.
 				</aside>
 			</section>
 
@@ -124,7 +187,7 @@
 
 				<aside class="notes">
 					<p>
-						A portable compilation target for the web.
+						In short, WebAssembly is a portable compilation target for the web.
 					</p>
 				</aside>
 			</section>
@@ -136,8 +199,14 @@
 
 				<aside class="notes">
 					<p>
-						Allows running languages other than JavaScript within browser environments.
+						And it allows running languages other than JavaScript within browser environments.
 					</p>
+				</aside>
+			</section>
+
+			<section class="center">
+				<aside class="notes">
+					As I mentioned, WebAssembly is a compilation target. So before going further, I want to make brief interlude regarding compilers...
 				</aside>
 			</section>
 
@@ -145,9 +214,6 @@
 				<p>C/C++&nbsp;&nbsp;&nbsp;→&nbsp;&nbsp;&nbsp;x86/ARM</p>
 
 				<aside class="notes">
-					<p>
-						Before going further, a brief interlude on compilers...
-					</p>
 					<p>
 						A "simple" compiler would take source files and directly compile them to machine code specific to a target CPU.
 					</p>
