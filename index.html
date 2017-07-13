@@ -689,7 +689,65 @@
 				<h2 class="no-text-transform">Emscripten</h2>
 
 				<aside class="notes">
-					So that finishes my high-level overview of WebAssembly. Next, I want to talk about the toolchain.
+					<p>
+						The main tool is Emscripten, which is an LLVM-to-JavaScript compiler.
+					</p>
+					<p>
+						It takes LLVM bitcode, which can be generated from C/C++ using llvm-gcc or clang, or from any other language which can be compiled to LLVM bitcode, and compiles that into JavaScript.
+					</p>
+					<p>
+						In practice, Emscripten serves as a drop-in replacement for a compiler like gcc, which, instead of binary, outputs JavaScript.
+					</p>
+				</aside>
+			</section>
+
+			<section class="center">
+				<h2 class="no-text-transform">Other Tools</h2>
+
+				<div class="row">
+					<ul class="column column-2">&nbsp;</ul>
+					<ul class="column column-9">
+						<li>Binaryen</li>
+						<li>WebAssembly Binary Toolkit (WABT)</li>
+					</ul>
+				</div>
+				<aside class="notes">
+					<ul>
+						<li>
+							<p>
+								Binaryen is a set of tools for as a the backend of compilers targeting WebAssembly as an output format.
+							</p>
+							<p>
+								Binaryen is used for supporting the LLVM compiler generation of WebAssembly.
+							</p>
+						</li>
+						<li>
+							<p>
+								The WebAssembly Binary Toolkit (or WABT) is a set of tools for converting between the WebAssembly binary format and the WebAssembly text format.
+							</p>
+						</li>
+					</ul>
+				</aside>
+			</section>
+
+			<section class="center">
+				<h2 class="no-text-transform"><a title="Emscripten SDK" href="https://github.com/juj/emsdk">emsdk</a></h2>
+
+				<aside class="notes">
+					<p>
+						Most of the WebAssembly toolchain necessary for compiling WebAssembly can be installed via a standalone Emscripten SDK, which includes Emscripten, Binaryen, and CLANG.
+					</p>
+					<p>
+						One thing I should warn you: the installed SDK is huge. On my Mac, the entire set of tools consumes over 10GB in disk space.
+					</p>
+				</aside>
+			</section>
+
+			<section class="center">
+				<h2 class="no-text-transform">Examples</h2>
+
+				<aside class="notes">
+					All right, time for some examples...
 				</aside>
 			</section>
 
@@ -940,25 +998,6 @@ var hypot = instance.exports.c_hypot;
 			</section>
 
 			<section class="center">
-				<h2 class="no-text-transform">Interlude</h2>
-
-				<div class="row">
-					<ul class="column column-2">&nbsp;
-					</ul>
-					<ul class="column column-6">
-						<li class="fragment">Cross-browser Consensus</li>
-						<li class="fragment">Active Development</li>
-						<li class="fragment">Node Version 8</li>
-						<li class="fragment">Toolchain Size</li>
-					</ul>
-				</div>
-
-				<aside class="notes">
-
-				</aside>
-			</section>
-
-			<section class="center">
 				<pre><code class="hljs c" contenteditable>
 // File: dasum.c
 #include &lt;math.h&gt;
@@ -1018,7 +1057,7 @@ $ emcc \
 				</code></pre>
 
 				<aside class="notes">
-
+					Note the MODULARIZE flag for generating glue code to make working with the module heap easier.
 				</aside>
 			</section>
 
@@ -1784,7 +1823,7 @@ dasum.free = free;
 				</code></pre>
 
 				<aside class="notes">
-
+					Note the memory size (16MB; default with Emscripten).
 				</aside>
 			</section>
 
@@ -1811,7 +1850,7 @@ dasum.free( bytes );
 				</code></pre>
 
 				<aside class="notes">
-
+					Copy data to the heap.
 				</aside>
 			</section>
 
@@ -1841,7 +1880,7 @@ for ( i = 0; i &lt; 10; i++ ) {
 				</code></pre>
 
 				<aside class="notes">
-
+					Set values directly on the heap.
 				</aside>
 			</section>
 
@@ -1852,15 +1891,55 @@ for ( i = 0; i &lt; 10; i++ ) {
 					<ul class="column column-2">&nbsp;
 					</ul>
 					<ul class="column column-6">
-						<li class="fragment">Glue Code</li>
-						<li class="fragment">Boilerplate</li>
-						<li class="fragment">Shared Memory</li>
-						<li class="fragment">Native Add-ons</li>
+						<li>Glue Code</li>
+						<li>Boilerplate</li>
+						<li>Shared Memory</li>
+						<li>Native Add-ons</li>
 					</ul>
 				</div>
 
 				<aside class="notes">
 
+				</aside>
+			</section>
+
+			<section class="center">
+				<h2 class="no-text-transform">Roadmap</h2>
+
+				<div class="row">
+					<ul class="column column-2">&nbsp;
+					</ul>
+					<ul class="column column-6">
+						<li class="fragment">Cross-browser Consensus</li>
+						<li class="fragment">Active Development</li>
+						<li class="fragment">LLVM</li>
+						<li class="fragment">Developer Tools</li>
+						<li class="fragment">New Features</li>
+						<li class="fragment">Node Version 8</li>
+					</ul>
+				</div>
+
+				<aside class="notes">
+					<ul>
+						<li>
+							Cross-browser consensus. Version 1.0. No longer in MVP, which means that browsers can now begin shipping WebAssembly enabled by default.
+						</li>
+						<li>
+							The specification is, however, under active development. And in fact, prior to version 1.0, there was no formal W3C working group. Only now are browser vendors working on an official WebAssembly specification.
+						</li>
+						<li>
+							Plans to graduate the LLVM from experimental to stable. Currently, you need to always ensure you pull down the latest SDK changes for Emscripten, binaryen, and company, as the entire build toolchain is in constant flux.
+						</li>
+						<li>
+							WebAssembly integration into browser developer tools.
+						</li>
+						<li>
+							Also on the roadmap are new features: threads, SIMD, exception-handling, GC, full IEEE 754 support.
+						</li>
+						<li>
+							You can start experimenting with WebAssembly now. Recent browsers and in Node.js version 8.
+						</li>
+					</ul>
 				</aside>
 			</section>
 
