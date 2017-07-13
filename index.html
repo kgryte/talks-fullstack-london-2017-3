@@ -501,7 +501,7 @@
 							The <strong>table</strong> section declares tables used in a module, where a table is similar to lineary memory, except, instead of bytes, the elements are opaque values of a particular element type. At the moment, the only supported element type is <code>"anyfunc"</code>, and the primary purpose of a table is to implement indirect function calls in C/C++ where the table contains indirectly-callable functions and an integer index is used as the pointer-to-function.
 						</li>
 						<li>
-							The <strong>memory</strong> section provides an internal definition of the linear memory used by a module, where linear memory can be considered as an untyped array of bytes which is sandboxed. Linear memories can either be declared within a module or created externally and imported.
+							The <strong>memory</strong> section provides an internal definition of the linear memory used by a module, where linear memory can be considered as a sandboxed untyped array of bytes. Linear memories can either be declared within a module or created externally and imported.
 						</li>
 						<li>
 							The <strong>global</strong> section provides definitions of global variables.
