@@ -142,7 +142,7 @@
 								However, as JavaScript engines have improved and gained support for hardware-accelerated graphics, the speed difference has dismissed significantly.
 							</p>
 							<p>
-								Accordingly, Java applets have less of a role on the web and have been deprecated.
+								Accordingly, Java applets have less of a role on the web and have now been deprecated.
 							</p>
 						</li>
 						<li>
@@ -162,7 +162,7 @@
 								The goal was determine whether JavaScript could be reduced to a language subset, capable of ahead-of-time optimizations and other performance improvements similar to that of statically compiled languages.
 							</p>
 							<p>
-								The team working on asm.js was able to demonstrate a runtime performance just 1.5-2x slower than C.
+								The team working on asm.js was able to demonstrate a runtime performance just 1.5-2x slower than C. Meaning, using JavaScript alone, they were able to achieve near-native performance.
 							</p>
 							<p>
 								One of the big advantages of asm.js compared to prior efforts is that, because asm.js is still JavaScript, code compiled to asm.js is backward compatible with older browsers.
@@ -311,7 +311,7 @@
 						Let's begin with the text format.
 					</p>
 					<p>
-						WebAssembly will (and I say "will", as there is no formal specification for WebAssembly; more on the later) define a standardized text format that encodes a WebAssembly module with all its contained definitions in a way that is equivalent to the binary format.
+						WebAssembly will, and I say "will", as there is no formal specification for WebAssembly (more on the later), will define a standardized text format that encodes a WebAssembly module with all its contained definitions in a way that is equivalent to the binary format.
 					</p>
 					<p>
 						As an example...
@@ -350,7 +350,7 @@
 						The code section begins with a function declaration, the declaration of our function "add".
 					</p>
 					<p>
-						The function only accepts input arguments which are 32-bit integers and add the integer arguments using the operator i32.add.
+						The function only accepts input arguments which are 32-bit integers, and it adds the integer arguments using the operator i32.add.
 					</p>
 				</aside>
 			</section>
@@ -486,13 +486,13 @@
 					</p>
 					<ol>
 						<li>
-							The type section declares all function signatures that will be used in the module.
+							The type section declares all function signatures that will be used in the module. This may contain other type declarations in the future.
 						</li>
 						<li>
 							The import section declares all imports that will be used in the module; e.g., externally defined functions, including JavaScript functions.
 						</li>
 						<li>
-							The function section declares the signatures of all functions used in a module (their definitions appear in the <strong>code</strong> section).
+							The function section declares the signatures of all functions used in a module, whose definitions will appear in the <strong>code</strong> section.
 						</li>
 						<li>
 							The table section declares tables used in a module, where a table is similar to lineary memory, except, instead of bytes, the elements are opaque values of a particular element type. At the moment, the only supported element type is <code>"anyfunc"</code>, and the primary purpose of a table is to implement indirect function calls in C/C++ where the table contains indirectly-callable functions and an integer index is used as the pointer-to-function.
@@ -520,7 +520,7 @@
 						</li>
 					</ol>
 					<p>
-						In addition to these sections, modules can define custom sections.
+						In addition to these sections, modules can define custom sections. One notable difference between these 11 sections and custom sections is that these sections must appear in order, whereas custom sections can appear in any order.
 					</p>
 				</aside>
 			</section>
@@ -715,7 +715,7 @@
 					<ul>
 						<li>
 							<p>
-								Binaryen is a set of tools for as a the backend of compilers targeting WebAssembly as an output format.
+								Binaryen is a set of tools for use as a the backend of compilers targeting WebAssembly as an output format.
 							</p>
 							<p>
 								Binaryen is used for supporting the LLVM compiler generation of WebAssembly.
@@ -798,7 +798,7 @@ $ emcc -std=c99 -O3 -s WASM=1 -s SIDE_MODULE=1 -o hypot.wasm hypot.c
 				</code></pre>
 
 				<aside class="notes">
-
+					SIDE_MODULE instructs Emscripten to only output the compiled WebAssembly. By default, Emscripten, when compiling WebAssembly, generates glue code which makes working with the module heap easier.
 				</aside>
 			</section>
 
@@ -993,7 +993,7 @@ var hypot = instance.exports.c_hypot;
 				</code></pre>
 
 				<aside class="notes">
-
+					Load similar to require (synchronously). Load buffer. Initialize the module environment. Create a block of lineary memory which a module will use for its heap. Create a table for indirect C/C++ function calls. Bundle as imports. Create a new instance. Use as normal.
 				</aside>
 			</section>
 
@@ -1039,7 +1039,7 @@ double c_dasum( const int N, const double *X, const int stride ) {
 				</code></pre>
 
 				<aside class="notes">
-
+					As another example, a BLAS function.
 				</aside>
 			</section>
 
@@ -1057,7 +1057,7 @@ $ emcc \
 				</code></pre>
 
 				<aside class="notes">
-					Note the MODULARIZE flag for generating glue code to make working with the module heap easier.
+					This time, we are not set the SIDE_MODULE flag, which will result in a significantly larger binary file. The MODULARIZE flag instructs Emscripten to wrap the glue code interface as a CommonJS module that can be required.
 				</aside>
 			</section>
 
@@ -1783,7 +1783,7 @@ c408 2802 0046 0440 41b8 0820 0536 0200
 				</code></pre>
 
 				<aside class="notes">
-
+					Significantly larger binary. This is partly due to the fact that the module operates on vectors and thus the module needs to require logic for loading and storing values on the heap. And partly due to the need for including various standard library functions.
 				</aside>
 			</section>
 
@@ -1823,7 +1823,15 @@ dasum.free = free;
 				</code></pre>
 
 				<aside class="notes">
-					Note the memory size (16MB; default with Emscripten).
+					<p>
+						Now that we used glue code, our procedure for loading and using a wasm module is slightly different. Note the memory size (16MB; default with Emscripten).
+					</p>
+					<p>
+						Note the crwap signature and the fact that WebAssembly functions can only accept numeric input values. Hence, instead of an actual pointer to an input array, we must provide a numeric offset, indicating where the array on which we want to operate begins.
+					</p>
+					<p>
+						Will want to provide convenience methods for malloc and free to make working with the module heap easier. This may involve checks as to whether memory has already been freed, etc.
+					</p>
 				</aside>
 			</section>
 
@@ -1850,7 +1858,7 @@ dasum.free( bytes );
 				</code></pre>
 
 				<aside class="notes">
-					Copy data to the heap.
+					Copying data to the heap.
 				</aside>
 			</section>
 
@@ -1880,7 +1888,7 @@ for ( i = 0; i &lt; 10; i++ ) {
 				</code></pre>
 
 				<aside class="notes">
-					Set values directly on the heap.
+					Set values directly on the heap. If possible work with the heap directly. Copying data from externally defined buffers (e.g., typed arrays) can be a significant performance bottleneck. When possible, reuse and share memory. Here, we reuse the view 10 times.
 				</aside>
 			</section>
 
@@ -1942,7 +1950,10 @@ for ( i = 0; i &lt; 10; i++ ) {
 				</table>
 				<aside class="notes">
 					<p>
-						Benchmarks! Note that native is hardware optimized BLAS.
+						Benchmarks! Note that native is hardware optimized BLAS. Note when compared to native add-on implementing reference BLAS that performance is the basically the same (i.e., wasm matches native performance). However, native add-ons have a significant advantage of being able to utilize hardware optimized libraries. Hardware optimized libraries will win every time.
+					</p>
+					<p>
+						WebAssembly is NOT a replacement for Node.js native add-ons.
 					</p>
 				</aside>
 			</section>
@@ -1956,7 +1967,9 @@ for ( i = 0; i &lt; 10; i++ ) {
 					<ul class="column column-6">
 						<li>Glue Code</li>
 						<li>Boilerplate</li>
+						<li>Complementarity</li>
 						<li>Shared Memory</li>
+						<li>Scripting</li>
 						<li>Native Add-ons</li>
 					</ul>
 				</div>
