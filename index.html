@@ -1884,6 +1884,69 @@ for ( i = 0; i &lt; 10; i++ ) {
 				</aside>
 			</section>
 
+			<section class="center" data-transition="slide-in slide-out" data-transition-speed="default">
+				<table>
+					<thead>
+						<tr>
+							<th>Length</th>
+							<th>JavaScript</th>
+							<th>wasm</th>
+							<th>Native</th>
+							<th>Perf</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>10</td>
+							<td>22,438,020</td>
+							<td>18,226,375</td>
+							<td>7,084,870</td>
+							<td>2.57x</td>
+						</tr>
+						<tr>
+							<td>100</td>
+							<td>4,350,384</td>
+							<td>6,428,586</td>
+							<td>6,428,626</td>
+							<td>1.0x</td>
+						</tr>
+						<tr>
+							<td>1000</td>
+							<td>481,417</td>
+							<td>997,234</td>
+							<td>3,289,090</td>
+							<td>0.30x</td>
+						</tr>
+						<tr>
+							<td>10000</td>
+							<td>28,186</td>
+							<td>110,540</td>
+							<td>355,172</td>
+							<td>0.31x</td>
+						</tr>
+						<tr>
+							<td>100000</td>
+							<td>1,617</td>
+							<td>11,157</td>
+							<td>30,058</td>
+							<td>0.37x</td>
+						</tr>
+						<tr>
+							<td>1000000</td>
+							<td>153</td>
+							<td>979</td>
+							<td>1,850</td>
+							<td>0.53x</td>
+						</tr>
+					</tbody>
+				</table>
+				<aside class="notes">
+					<p>
+						Benchmarks!
+					</p>
+				</aside>
+			</section>
+
 			<section class="center">
 				<h2 class="no-text-transform">Notes</h2>
 
