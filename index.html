@@ -411,7 +411,7 @@
 						...here is same WebAssembly we saw in text format represented in binary format.
 					</p>
 					<p>
-						Binary converting the Hex to a string, we can see that the module is comprised of 6 sections.
+						If we convert the Hex to a string (right side), we can see that the module is comprised of 6 sections.
 					</p>
 					<ul>
 						<li>preamble</li>
@@ -526,6 +526,93 @@
 			</section>
 
 			<section class="center">
+				<h2 class="no-text-transform">Memory Access</h2>
+
+				<div class="row">
+					<ul class="column column-5">
+						<li>i32.load8_s (signed)</li>
+						<li>i32.load8_u (unsigned)</li>
+						<li>i32.load16_s</li>
+						<li>i32.load16_u</li>
+						<li>i32.load</li>
+						<li>i64.load8_s</li>
+						<li>i64.load8_u</li>
+						<li>i64.load16_s</li>
+						<li>i64.load16_u</li>
+						<li>i64.load32_s</li>
+						<li>i64.load32_u</li>
+					</ul>
+					<ul class="column column-3">
+						<li>i64.load</li>
+						<li>f32.load</li>
+						<li>f64.load</li>
+						<li>i32.store8</li>
+						<li>i32.store16</li>
+						<li>i32.store</li>
+						<li>i64.store8</li>
+						<li>i64.store16</li>
+						<li>i64.store32</li>
+						<li>i64.store</li>
+						<li>f32.store</li>
+					</ul>
+					<ul class="column column-3">
+						<li>f64.store</li>
+					</ul>
+				</div>
+
+				<aside class="notes">
+					Linear memory access is accomplished with explicit store and load operators.
+				</aside>
+			</section>
+
+			<section class="center">
+				<h2 class="no-text-transform">Control Constructs</h2>
+
+				<div class="row">
+					<ul class="column column-2">&nbsp;</ul>
+					<ul class="column column-5">
+						<li>nop</li>
+						<li>block</li>
+						<li>loop</li>
+						<li>if</li>
+						<li>else</li>
+						<li>br</li>
+						<li>br_if</li>
+						<li>br_table</li>
+						<li>return</li>
+						<li>end</li>
+					</ul>
+				</div>
+
+				<aside class="notes">
+					WebAssembly offers basic control flow constructs, such as ifs, loops, and blocks.
+				</aside>
+			</section>
+
+			<section class="center">
+				<h2 class="no-text-transform">Operators</h2>
+
+				<div class="row">
+					<ul class="column column-2">&nbsp;</ul>
+					<ul class="column column-5">
+						<li>i32.add</li>
+						<li>i32.sub</li>
+						<li>i32.mul</li>
+						<li>i32.div_s</li>
+						<li>i32.div_u</li>
+						<li>i32.rem_s</li>
+						<li>i32.rem_u</li>
+						<li>i32.and</li>
+						<li>...<a href="http://webassembly.org/docs/semantics/#32-bit-integer-operators">many more</a></li>
+					</ul>
+				</div>
+
+				<aside class="notes">
+					The current WebAssembly specification defines many operators and functions for data type conversion, truncation, reinterpretation, promotion, and demotion. Here, I am listing operators for working with 32-bit integers. For the complete list of operators, see the specification.
+				</aside>
+			</section>
+
+			<section class="center">
 				<h2 class="no-text-transform">Advantages</h2>
 
 				<div class="fragment row">
@@ -587,6 +674,22 @@
 						<li>
 							If we combine all the aforementioned advantages, WebAssembly promises, for certain applications, better performance compared to JavaScript.
 						</li>
+				</aside>
+			</section>
+
+			<section class="center">
+				<h2 class="no-text-transform">Toolchain</h2>
+
+				<aside class="notes">
+					So that finishes my high-level overview of WebAssembly. Next, I want to talk about the toolchain.
+				</aside>
+			</section>
+
+			<section class="center">
+				<h2 class="no-text-transform">Emscripten</h2>
+
+				<aside class="notes">
+					So that finishes my high-level overview of WebAssembly. Next, I want to talk about the toolchain.
 				</aside>
 			</section>
 
